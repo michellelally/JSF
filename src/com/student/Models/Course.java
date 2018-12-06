@@ -1,3 +1,4 @@
+package com.student.Models;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
