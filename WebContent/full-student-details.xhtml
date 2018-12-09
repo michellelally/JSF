@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+ <f:metadata>
+	<f:event type="preRenderView"
+		listener="#{studentController.loadFullStudentDetails(students)}" />
+</f:metadata>
+  
+  <h:head>
+    <title>Full Students Page</title>
+  </h:head>
+  
+  <h:body>
+	<h3>Full Student Details Page</h3>
+	<h:form>
+		<h:dataTable value="#{studentController.fullStudent}"
+			var="fullStudent" border="2" styleClass="courseTable"
+			headerClass="courseTableHeader"
+			rowClasses="courseTableOddRow,courseTableEvenRow">
+			<h:column>
+				<f:facet name="header">Student ID</f:facet>
+		    	#{fullStudent.sid}
+		    </h:column>
+		    <h:column>
+				<f:facet name="header">Student Name</f:facet>
+		    	#{fullStudent.sName}
+		    </h:column>
+			<h:column>
+				<f:facet name="header">Course ID</f:facet>
+		    	#{fullStudent.cid}
+		    </h:column>
+			<h:column>
+				<f:facet name="header">Course Name</f:facet>
+		    	#{fullStudent.cName}
+		    </h:column>
+			<h:column>
+				<f:facet name="header">Course Duration</f:facet>
+		    	#{fullStudent.duration}
+		    </h:column>
+		</h:dataTable>
+		<br />
+		<a><h:commandLink value="Home Students" action="list-students" /></a>
+	</h:form>
+  </h:body>
+</html>

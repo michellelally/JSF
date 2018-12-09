@@ -81,4 +81,71 @@ public class DAOSQL {
 		 return courseStudent;
 	}
 	
+	public ArrayList<Student> loadStudents() throws Exception {
+		 ArrayList<Student> students = new ArrayList<Student>();
+		 conn = mysqlDS.getConnection();
+		 
+		 Statement stmt = conn.createStatement();		
+		 ResultSet rs = stmt.executeQuery("select * from student");
+		 
+		 while (rs.next()) {
+			 Student student = new Student();
+			 student.setSid(rs.getString("sid"));
+			 student.setCid(rs.getString("cID"));
+			 student.setName(rs.getString("name"));
+			 student.setAddress(rs.getString("address"));
+			 students.add(student);
+		 }
+		 return students;
+	}
+	
+	public void addStudent(Student s) throws Exception{
+		System.out.print("addStudent()" + s.getSid() + ", " + s.getCid() + ", " + s.getName() + ", " + s.getAddress() );
+		
+		conn = mysqlDS.getConnection();
+		Statement stmt = conn.createStatement();
+		
+		String query = "insert into student (sid ,cID, name, address) values ('" + s.getSid() + "', '" + s.getCid() + "', '" + s.getName() + "', '" + s.getAddress() + "');";
+		stmt.executeUpdate(query);
+		
+		ArrayList<Student> students = new ArrayList<Student>();
+		System.out.println("Size: " + students.size());
+	}
+	
+	public void deleteStudent(Student s) throws SQLException {
+		System.out.print("deleteStudent()" + s.getSid() + ", " + s.getCid() + ", " + s.getName() + ", " + s.getAddress() );
+		
+		conn = mysqlDS.getConnection();
+		
+		Statement stmt = conn.createStatement();
+		String query = "delete from student where sid in('" + s.getSid() +"');";
+		
+		stmt.executeUpdate(query);
+		
+		ArrayList<Student> students = new ArrayList<Student>();
+		System.out.println("Size: " + students.size());
+
+	}
+	
+	public ArrayList<CourseStudent> loadFullStudentDetails(Student s) throws Exception {
+		System.out.print("addStudent()" + s.getSid() + ", " + s.getCid() + ", " + s.getName() + ", " + s.getAddress() );
+
+		 ArrayList<CourseStudent> fullStudents = new ArrayList<CourseStudent>();
+		 conn = mysqlDS.getConnection();
+		 
+		 Statement stmt = conn.createStatement();		
+		 ResultSet rs = stmt.executeQuery("select s.sid, s.name, s.cid, c.cname, c.duration from student s join course c on s.cid = c.cid and s.sid='"+ s.getSid()+ "';");
+		 
+		 while (rs.next()) {
+			 CourseStudent fullStudent = new CourseStudent();
+			 fullStudent.setSid(rs.getString("sid"));
+			 fullStudent.setsName(rs.getString("name"));
+			 fullStudent.setCid(rs.getString("cID"));
+			 fullStudent.setcName(rs.getString("cName"));
+			 fullStudent.setDuration(rs.getInt("duration"));
+			 fullStudents.add(fullStudent);
+		 }
+		 return fullStudents;
+	}
+	
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Add Students Page</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:messages globalOnly="true" styleClass="error" />
+		<br />
+		Student ID: <h:inputText value="#{student.sid}"
+			p:placeholder="Enter Student ID" id="sid" required="true"
+			requiredMessage="Student ID is mandatory" />
+		<h:message for="sid" />
+		<br />
+		Address: <h:inputText value="#{student.address}"
+			p:placeholder="Enter Address" />
+		<br />
+		Name: <h:inputText value="#{student.name}"
+			p:placeholder="Enter Student Name" id="name" required="true"
+			requiredMessage="Student Name is mandatory" />
+		<h:message for="name" />
+		<br />
+		Course ID: <h:inputText value="#{student.cid}"
+			p:placeholder="Enter Course ID" id="cid" required="true"
+			requiredMessage="Course ID is mandatory" />
+		<h:message for="cid" />
+		<br />
+		<h:commandButton value="Add"
+			action="#{studentController.addStudent(student)}" />
+		<br />
+		<a><h:commandLink value="Home" action="index" /></a>
+
+	</h:form>
+</h:body>
+</html>

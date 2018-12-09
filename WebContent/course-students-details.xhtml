@@ -5,7 +5,7 @@
 
 <f:metadata>
 	<f:event type="preRenderView"
-		listener="#{courseController.loadCourseStudentDetails(course)}" />
+		listener="#{courseController.loadCourseStudentDetails(courses)}" />
 </f:metadata>
 
 <h:head>
@@ -14,11 +14,7 @@
 
 <h:body>
 	<h3>Course Student Details Courses</h3>
-	<br />
-	<h:messages globalOnly="true" styleClass="error" />
-	<br />
 	<h:form>
-		<br />
 		<h:dataTable value="#{courseController.courseStudent}"
 			var="courseStudent" border="2" styleClass="courseTable"
 			headerClass="courseTableHeader"
@@ -43,8 +39,9 @@
 				<f:facet name="header">Student Address</f:facet>
 		    	#{courseStudent.address}
 		    </h:column>
-			<br />
 		</h:dataTable>
+		<br />
+		<a><h:commandLink value="Home Courses" action="list-courses" /></a>
 	</h:form>
 </h:body>
 </html>

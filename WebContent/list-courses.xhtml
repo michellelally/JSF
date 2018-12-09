@@ -14,11 +14,10 @@
 
 <h:body>
 	<h3>List Courses</h3>
-	<br />
 	<h:messages globalOnly="true" styleClass="error"/>
-	<br/>
 	<h:form>
 		<h:commandButton value="Add Course" action = "add-course"/> <br />
+		<br/>
 		<h:dataTable value="#{courseController.courses}" var="courses"
 			border="2" styleClass="courseTable" headerClass="courseTableHeader"
 			rowClasses="courseTableOddRow,courseTableEvenRow">
@@ -36,11 +35,14 @@
 		    </h:column>
 		    <h:column>
 		    	<f:facet name="header">Action</f:facet>
-		    	<a><h:commandLink value="Show Students" action="course-students-details"/></a>
+		    	<a><h:commandLink value="Show Students" action="#{courseController.loadCourseStudentDetails(courses)}"/></a>
 		    	<a><h:commandLink value="Delete" action="#{courseController.deleteCourse(courses)}"/></a>
 		    </h:column>
 			<br />
 		</h:dataTable>
+		<br/>
+		<a><h:commandLink value="Home" action="index"/></a>
 	</h:form>
+	
 </h:body>
 </html>

@@ -14,35 +14,35 @@ import java.sql.SQLException;
 
 @ManagedBean
 @ApplicationScoped
-public class CourseController {
-	private ArrayList<Course> courses;
-	private ArrayList<CourseStudent> courseStudent;
+public class StudentController {
+	private ArrayList<Student> students;
+	private ArrayList<CourseStudent> fullStudent;
 	private DAOSQL dao;
 
-	public CourseController() throws Exception {
+	public StudentController() throws Exception {
 		super();
 		dao = new DAOSQL();
-		courses = new ArrayList<>();
+		students = new ArrayList<>();
 	}
-
-	public void loadCourses() {
+	
+	public void loadStudents() {
 		try {
-			courses = dao.loadCourses();
+			students = dao.loadStudents();
 		} catch (Exception e) {
 			FacesMessage message = new FacesMessage("Error: " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			e.printStackTrace();
 		}
-		System.out.println("Course size = " + courses.size());
+		System.out.println("Students size = " + students.size());
 	}
-
-	public ArrayList<Course> getCourses() {
-		return courses;
+	
+	public ArrayList<Student> getStudents() {
+		return students;
 	}
-
-	public String addCourse(Course c) {
+	
+	public String addStudent(Student s) {
 		try {
-			dao.addCourse(c);
+			dao.addStudent(s);
 			return "index.xhtml";
 		} catch (CommunicationsException e) {
 			FacesMessage message = new FacesMessage("Error: Cannot connect to Database");
@@ -51,9 +51,9 @@ public class CourseController {
 			e.printStackTrace();
 			return null;
 		} catch (SQLException e) {
-			FacesMessage message = new FacesMessage("Error: Course already exists");
+			FacesMessage message = new FacesMessage("Error: " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
-			System.out.println("Course already exists");
+			System.out.println("Student already exists");
 			e.printStackTrace();
 			return null;
 		} catch (Exception e) {
@@ -65,30 +65,32 @@ public class CourseController {
 		}
 	}
 	
-	public String deleteCourse(Course c){	
+	public String deleteStudent(Student s){	
 		try {
-			dao.deleteCourse(c);
+			dao.deleteStudent(s);
 		} catch (SQLException e) {
-			FacesMessage message = 	new FacesMessage("Error: Cannot Delete Course: " + c.getCid() + " as there are associated Students");
+			FacesMessage message = 	new FacesMessage("Error: " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
-		return "list-courses.xhtml";
+		return "list-students.xhtml";
 	}
 	
-	public ArrayList<CourseStudent> getCourseStudent() {
-		return courseStudent;
+	public ArrayList<CourseStudent> getFullStudent() {
+		return fullStudent;
 	}
 	
-	public String loadCourseStudentDetails(Course c) {
+	public String loadFullStudentDetails(Student s) {
 		try {
-			courseStudent = dao.loadCourseStudentDetails(c);
+			fullStudent = dao.loadFullStudentDetails(s);
 		} catch (Exception e) {
 			FacesMessage message = new FacesMessage("Error: " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			e.printStackTrace();
 		}
-		return "course-students-details.xhtml";
+		return "full-student-details.xhtml";
 	}
 	
+
 	
+
 }

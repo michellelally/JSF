@@ -1,9 +1,10 @@
 package com.student.Models;
 
 public class CourseStudent {
-	String cid;
-	String cName;
-	int duration;
+	private String cid;
+	private String cName;
+	private int duration;
+	private String sid;
 	private String sName;
 	private String address;
 	
@@ -24,6 +25,12 @@ public class CourseStudent {
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 	public String getsName() {
 		return sName;
